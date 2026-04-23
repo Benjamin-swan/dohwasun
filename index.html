@@ -147,34 +147,88 @@
     <div class="col">
       <div class="card">
         <div class="card-title">🏠 랜딩 & 인트로 <span class="hmda-tag">HMDA-1, 2</span></div>
-        <div class="card-subtitle">초기 유입 채널 분석 및 활성화</div>
-        <div class="event-badge"><div class="event-count">1</div>landing_enter</div>
-        <div class="event-badge"><div class="event-count">2</div>intro_step_complete</div>
+        <div class="card-subtitle">고객이 처음 도착해서 서비스 설명을 읽는 단계</div>
+        
+        <div style="margin-bottom: 8px;">
+          <div class="event-badge" style="margin-bottom:2px;"><div class="event-count">1</div>landing_enter</div>
+          <div style="font-size: 11px; color: #64748b; line-height: 1.3; padding-left: 4px;">
+            어느 사이트(네이버, 구글, 인스타 등)를 거쳐서 우리 서비스에 들어왔는지 UTM 값(광고 링크 추적기)을 함께 수집합니다.
+          </div>
+        </div>
+
+        <div>
+          <div class="event-badge" style="margin-bottom:2px;"><div class="event-count">2</div>intro_step_complete</div>
+          <div style="font-size: 11px; color: #64748b; line-height: 1.3; padding-left: 4px;">
+            인트로 화면을 넘길 때마다 기록하여, 사람들이 주로 몇 번째 설명에서 지루해하고 나가는지 이탈률을 파악합니다.
+          </div>
+        </div>
       </div>
 
       <div class="card">
         <div class="card-title">🎭 캐릭터 선택 <span class="hmda-tag">HMDA-1</span></div>
-        <div class="card-subtitle">캐릭터 선택 소요 시간 및 클릭률</div>
-        <div class="event-badge"><div class="event-count">3</div>enter_character_select</div>
-        <div class="event-badge"><div class="event-count">4</div>character_select</div>
+        <div class="card-subtitle">캐릭터 선택 소요 시간 및 선호도 파악</div>
+        
+        <div style="margin-bottom: 8px;">
+          <div class="event-badge" style="margin-bottom:2px;"><div class="event-count">3</div>enter_character_select</div>
+          <div style="font-size: 11px; color: #64748b; line-height: 1.3; padding-left: 4px;">
+            사용자가 캐릭터 선택 창을 처음 본 순간의 시간을 기록합니다.
+          </div>
+        </div>
+
+        <div>
+          <div class="event-badge" style="margin-bottom:2px;"><div class="event-count">4</div>character_select</div>
+          <div style="font-size: 11px; color: #64748b; line-height: 1.3; padding-left: 4px;">
+            최종적으로 어떤 캐릭터를 골랐는지, 그리고 고민하는 데 몇 초나 걸렸는지를 기록합니다.
+          </div>
+        </div>
       </div>
 
       <div class="card">
         <div class="card-title">📝 결과 확인 <span class="hmda-tag">HMDA-2, 3</span></div>
-        <div class="card-subtitle">결과 수령 및 미선택 캐릭터 반응</div>
-        <div class="event-badge"><div class="event-count">5</div>user_info_submit</div>
-        <div class="event-badge"><div class="event-count">6</div>result_received</div>
-        <div class="event-badge"><div class="event-count">7</div>unselected_character_shown</div>
-        <div class="event-badge"><div class="event-count">8</div>unselected_character_click</div>
+        <div class="card-subtitle">무료 결과를 받고 미선택 캐릭터에 반응하는 단계</div>
+        
+        <div style="margin-bottom: 8px;">
+          <div class="event-badge" style="margin-bottom:2px;"><div class="event-count">5</div>user_info_submit</div>
+          <div class="event-badge" style="margin-bottom:2px;"><div class="event-count">6</div>result_received</div>
+          <div style="font-size: 11px; color: #64748b; line-height: 1.3; padding-left: 4px;">
+            개인정보(이름 등)는 제외하고, 어떤 캐릭터의 무료 결과를 무사히 받았는지만 깔끔하게 기록합니다.
+          </div>
+        </div>
+
+        <div>
+          <div class="event-badge" style="margin-bottom:2px;"><div class="event-count">7</div>unselected_character_shown</div>
+          <div class="event-badge" style="margin-bottom:2px;"><div class="event-count">8</div>unselected_character_click</div>
+          <div style="font-size: 11px; color: #64748b; line-height: 1.3; padding-left: 4px;">
+            "다른 캐릭터의 결과도 볼래?"라는 버튼이 화면에 보였을 때, 실제로 얼마나 많은 사람이 클릭하는지 유도율을 측정합니다.
+          </div>
+        </div>
       </div>
 
       <div class="card">
-        <div class="card-title">💳 유료 결제 & 완독 <span class="hmda-tag">HMDA-3, 4, 5</span></div>
-        <div class="card-subtitle">전환 목표, 체류 시간, 바이럴 확산</div>
-        <div class="event-badge"><div class="event-count">9</div>payment_click</div>
-        <div class="event-badge"><div class="event-count">10</div>paid_version_enter</div>
-        <div class="event-badge"><div class="event-count">11</div>paid_version_complete_read</div>
-        <div class="event-badge"><div class="event-count">12</div>share_click</div>
+        <div class="card-title">💳 유료 결제 & 공유 <span class="hmda-tag">HMDA-3, 4, 5</span></div>
+        <div class="card-subtitle">서비스의 최종 비즈니스 목표 달성 단계</div>
+        
+        <div style="margin-bottom: 8px;">
+          <div class="event-badge" style="margin-bottom:2px;"><div class="event-count">9</div>payment_click</div>
+          <div style="font-size: 11px; color: #64748b; line-height: 1.3; padding-left: 4px;">
+            결제할 마음(의도)을 먹고 결제창을 띄운 횟수를 잽니다. (진짜 결제가 되었는지는 B/E가 담당)
+          </div>
+        </div>
+
+        <div style="margin-bottom: 8px;">
+          <div class="event-badge" style="margin-bottom:2px;"><div class="event-count">10</div>paid_version_enter</div>
+          <div class="event-badge" style="margin-bottom:2px;"><div class="event-count">11</div>paid_version_complete_read</div>
+          <div style="font-size: 11px; color: #64748b; line-height: 1.3; padding-left: 4px;">
+            돈을 낸 사용자가 결과를 끝까지 다 읽어보는지, 스크롤을 끝까지 내리는 데 걸리는 시간(체류 시간)을 잽니다.
+          </div>
+        </div>
+
+        <div>
+          <div class="event-badge" style="margin-bottom:2px;"><div class="event-count">12</div>share_click</div>
+          <div style="font-size: 11px; color: #64748b; line-height: 1.3; padding-left: 4px;">
+            재밌어서 지인에게 공유 버튼을 누른 횟수입니다. (이 링크로 친구가 들어오면 1번 이벤트에서 추적됩니다)
+          </div>
+        </div>
       </div>
     </div>
 
@@ -182,29 +236,33 @@
     <div class="col">
       <div class="card gtm">
         <div class="card-title">🌐 Google Tag Manager</div>
-        <div class="card-subtitle">클라이언트 사이드 12개 이벤트 중계</div>
+        <div class="card-subtitle">클라이언트 사이드 12개 이벤트 중계소</div>
         <div class="api-row">
-          <span class="badge gtm">TAG</span> F/E 발생 이벤트 Trigger
+          <span class="badge gtm">TAG</span> F/E 발생 이벤트 수집 및 전달
         </div>
         <div class="desc-text">
-          - 개발자가 dataLayer로 이벤트를 쏘면 GTM이 수집<br>
-          - <b>마케터(분석가)가 직접 Amplitude로 전송 관리</b>
+          - 개발자가 코드로 이벤트를 넘겨주면 GTM이 보관하고 있다가 Amplitude로 쏴줍니다.<br>
+          - <b>장점:</b> 나중에 마케터가 추적 규칙을 바꾸고 싶을 때, 개발자에게 부탁하지 않고 직접 GTM 화면에서 수정할 수 있습니다.
         </div>
       </div>
 
       <div class="card api">
-        <div class="card-title">⚙️ B/E (Next.js API Routes)</div>
-        <div class="card-subtitle">서버 사이드 결제 통신 및 로깅</div>
+        <div class="card-title">⚙️ B/E (Next.js API)</div>
+        <div class="card-subtitle">서버 사이드 결제 통신 및 보안 로깅</div>
         
         <div class="api-row"><span class="badge post">POST</span> /api/payment/request</div>
-        <div class="desc-text" style="margin:0 0 8px 0;">↳ PayApp 결제 요청 SMS 발송</div>
+        <div class="desc-text" style="margin:0 0 8px 0;">
+          ↳ <b>결제 요청:</b> 사용자가 결제 버튼을 누르면, 백엔드가 결제 대행사(PayApp)에 "이 사람 폰으로 결제창 띄워주세요"라고 요청하는 단계입니다.
+        </div>
 
         <div class="api-row"><span class="badge post">POST</span> /api/payment/callback</div>
-        <div class="desc-text" style="margin:0 0 8px 0;">↳ PayApp 결제 완료 Webhook 수신</div>
+        <div class="desc-text" style="margin:0 0 8px 0;">
+          ↳ <b>영수증 수신:</b> 결제가 진짜로 성공하면, PayApp이 우리 백엔드 서버로만 몰래 "결제 성공했음!" 하고 영수증(Webhook)을 보내줍니다.
+        </div>
         
-        <div class="event-badge be"><div class="event-count">13</div>payment_complete</div>
+        <div class="event-badge be" style="margin-top: 8px;"><div class="event-count">13</div>payment_complete</div>
         <div class="desc-text" style="color:#b91c1c; font-weight:600;">
-          [중요] 이 이벤트는 GTM을 거치지 않고 서버가 직접 Amplitude HTTP API로 쏩니다.
+          [핵심] 해킹 방지를 위해 브라우저(F/E)를 믿지 않고, 영수증을 확인한 백엔드 서버가 직접 Amplitude(분석툴)에 "이 유저 결제 진짜 했어!"라고 다이렉트로 기록을 꽂아버립니다.
         </div>
       </div>
     </div>
@@ -213,20 +271,20 @@
     <div class="col">
       <div class="card amp">
         <div class="card-title">📈 Amplitude (분석용)</div>
-        <div class="card-subtitle">총 13개 이벤트 수집 및 시각화</div>
+        <div class="card-subtitle">13개의 '행동 장부'가 모이는 곳</div>
         <div class="desc-text">
-          - <b>HMDA 1~5 백로그 지표 구현</b><br>
-          - UTM 기반 채널별 전환율 측정<br>
-          - <span style="color:#ef4444;font-weight:600">※ 실제 사용자 이름/전화번호 등 PII 배제</span>
+          - <b>역할:</b> "유저가 언제 어디를 클릭했나?"만 기록하는 행동 전용 장부입니다.<br>
+          - 이 장부를 바탕으로 이탈률(Funnel)과 결제 전환율(Retention) 그래프를 그립니다.<br>
+          - <span style="color:#ef4444;font-weight:600">※ 주의: 그래프를 그리기 위한 익명 데이터만 모읍니다. 이름이나 전화번호는 절대 보내면 안 됩니다.</span>
         </div>
       </div>
 
       <div class="card db">
         <div class="card-title">💾 AWS / DB (운영용)</div>
-        <div class="card-subtitle">비즈니스 데이터 관리</div>
+        <div class="card-subtitle">서비스 핵심 '비즈니스 창고'</div>
         <div class="desc-text">
-          - 사주/타로 결과 원본 데이터<br>
-          - 사용자 식별 정보, 결제 영수증 저장
+          - <b>역할:</b> 서비스가 진짜로 굴러가기 위해 필요한 모든 진짜 데이터가 저장되는 곳입니다.<br>
+          - 사주/타로 결과 원본, 사용자 이름, 영수증 번호 등을 안전하게 보관합니다.
         </div>
       </div>
       
