@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PHM Data Analytics Flow & Backlog</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      background: #f0f2f8;
+      color: #1a1a2e;
+      padding: 40px 36px 64px;
+      min-width: 1200px;
+    }
+
+    /* ─── HEADER ─── */
+    .header { margin-bottom: 20px; }
+    .header h1 { font-size: 28px; font-weight: 900; color: #111827; letter-spacing: -0.5px; }
+    .header p { font-size: 14px; color: #6b7280; margin-top: 5px; }
+    
+    .stats-bar {
+      display: flex; gap: 15px; margin-top: 15px;
+    }
+    .stat-badge {
+      background: #1e293b; color: #fff; padding: 6px 12px; border-radius: 8px;
+      font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px;
+    }
+    .stat-badge span { background: #3b82f6; padding: 2px 8px; border-radius: 12px; font-size: 12px; }
+
+    /* ─── OUTER CARD ─── */
+    .outer {
+      background: #ffffff; border: 1.5px solid #e5e7eb; border-radius: 18px;
+      overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.08); margin-top: 20px;
+    }
+
+    /* ─── COLUMN HEADERS ─── */
+    .col-headers { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+    .col-header {
+      padding: 16px 24px; text-align: center; font-size: 13px; font-weight: 800;
+      letter-spacing: 0.05em; border-right: 1.5px solid #e5e7eb;
+    }
+    .col-header:last-child { border-right: none; }
+    .col-header.ia  { background: #eff6ff; color: #1d4ed8; border-bottom: 3px solid #3b82f6; }
+    .col-header.api { background: #fef2f2; color: #b91c1c; border-bottom: 3px solid #ef4444; }
+    .col-header.db  { background: #f5f3ff; color: #6d28d9; border-bottom: 3px solid #8b5cf6; }
+
+    /* ─── CONTENT GRID ─── */
+    .content-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+    .col { padding: 24px 20px 28px; border-right: 1.5px solid #e5e7eb; }
+    .col:last-child { border-right: none; }
+
+    /* ─── CARDS ─── */
+    .card {
+      background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 11px;
+      padding: 15px; margin-bottom: 15px; position: relative;
+    }
+    .card-title {
+      font-size: 14px; font-weight: 800; color: #1e293b; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;
+    }
+    .card-subtitle { font-size: 12px; color: #475569; font-weight: 600; margin-bottom: 10px; }
+    
+    .hmda-tag {
+      font-size: 10px; font-weight: 800; background: #e2e8f0; color: #475569;
+      padding: 2px 6px; border-radius: 4px;
+    }
+
+    .event-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10.5px; font-family: 'Courier New', monospace; font-weight: 700;
+      background: #e0f2fe; color: #0284c7; padding: 4px 8px; border-radius: 6px;
+      margin: 0 4px 6px 0; border: 1px solid #bae6fd;
+    }
+    .event-badge.be { background: #fee2e2; color: #b91c1c; border-color: #fca5a5; }
+    .event-count { background: #fff; border-radius: 50%; width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; font-size: 9px; color: #0369a1; }
+    .event-badge.be .event-count { color: #991b1b; }
+
+    /* ─── API & DB COLORS ─── */
+    .card.gtm { background: #fffbeb; border-color: #fcd34d; }
+    .card.api { background: #fef2f2; border-color: #fca5a5; }
+    .card.amp { background: #f5f3ff; border-color: #c4b5fd; }
+    .card.db { background: #ecfdf5; border-color: #6ee7b7; }
+    
+    .api-row {
+      display: flex; align-items: flex-start; gap: 8px;
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 6px;
+      padding: 8px 10px; margin-bottom: 8px; font-size: 12px;
+      font-family: 'Courier New', monospace; color: #334155;
+    }
+    .badge { font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 4px; }
+    .badge.post { background: #dcfce7; color: #15803d; }
+    .badge.gtm { background: #fef3c7; color: #92400e; }
+    .desc-text { font-size: 12px; color: #64748b; line-height: 1.6; margin-top: 8px; }
+
+    /* ─── HMDA BACKLOG SECTION ─── */
+    .hmda-wrap {
+      margin-top: 20px; background: #ffffff; border: 1.5px solid #e5e7eb; border-radius: 14px;
+      padding: 22px 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .section-label {
+      font-size: 16px; font-weight: 800; color: #111827; margin-bottom: 16px;
+      border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; display: flex; justify-content: space-between;
+    }
+    
+    .hmda-grid {
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 15px;
+    }
+    .hmda-box {
+      background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px;
+    }
+    .hmda-box-title {
+      font-size: 13px; font-weight: 800; color: #3b82f6; margin-bottom: 8px; display: flex; justify-content: space-between;
+    }
+    .hmda-box-desc { font-size: 11px; color: #64748b; margin-bottom: 10px; line-height: 1.4; }
+    .hmda-event-list { display: flex; flex-direction: column; gap: 4px; }
+    .hmda-event {
+      font-size: 10.5px; font-family: 'Courier New', monospace; background: #fff; border: 1px solid #e2e8f0; padding: 3px 6px; border-radius: 4px; color: #334155;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header">
+  <h1>🔮 PHM Data Analytics Flow & Backlog (hmda.md 반영)</h1>
+  <p>F/E(사용자 행동), GTM, B/E(결제 서버) 연동 구조 및 총 13개의 이벤트 추적 명세</p>
+  
+  <div class="stats-bar">
+    <div class="stat-badge">총 추적 이벤트 수 <span>13개</span></div>
+    <div class="stat-badge" style="background:#0284c7;">F/E 처리 이벤트 <span>12개</span></div>
+    <div class="stat-badge" style="background:#b91c1c;">B/E 처리 이벤트 <span>1개</span></div>
+    <div class="stat-badge" style="background:#6d28d9;">HMDA 백로그 <span>6개 항목</span></div>
+  </div>
+</div>
+
+<!-- ── MAIN 3-COLUMN ── -->
+<div class="outer">
+  <div class="col-headers">
+    <div class="col-header ia">1. 사용자 화면 (F/E Pages & Events)</div>
+    <div class="col-header api">2. 트래킹 & API 레이어 (GTM / B/E)</div>
+    <div class="col-header db">3. 데이터 분석 & 저장소 (Amp / DB)</div>
+  </div>
+
+  <div class="content-grid">
+    <!-- ════ COL 1: F/E ════ -->
+    <div class="col">
+      <div class="card">
+        <div class="card-title">🏠 랜딩 & 인트로 <span class="hmda-tag">HMDA-1, 2</span></div>
+        <div class="card-subtitle">초기 유입 채널 분석 및 활성화</div>
+        <div class="event-badge"><div class="event-count">1</div>landing_enter</div>
+        <div class="event-badge"><div class="event-count">2</div>intro_step_complete</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎭 캐릭터 선택 <span class="hmda-tag">HMDA-1</span></div>
+        <div class="card-subtitle">캐릭터 선택 소요 시간 및 클릭률</div>
+        <div class="event-badge"><div class="event-count">3</div>enter_character_select</div>
+        <div class="event-badge"><div class="event-count">4</div>character_select</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📝 결과 확인 <span class="hmda-tag">HMDA-2, 3</span></div>
+        <div class="card-subtitle">결과 수령 및 미선택 캐릭터 반응</div>
+        <div class="event-badge"><div class="event-count">5</div>user_info_submit</div>
+        <div class="event-badge"><div class="event-count">6</div>result_received</div>
+        <div class="event-badge"><div class="event-count">7</div>unselected_character_shown</div>
+        <div class="event-badge"><div class="event-count">8</div>unselected_character_click</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💳 유료 결제 & 완독 <span class="hmda-tag">HMDA-3, 4, 5</span></div>
+        <div class="card-subtitle">전환 목표, 체류 시간, 바이럴 확산</div>
+        <div class="event-badge"><div class="event-count">9</div>payment_click</div>
+        <div class="event-badge"><div class="event-count">10</div>paid_version_enter</div>
+        <div class="event-badge"><div class="event-count">11</div>paid_version_complete_read</div>
+        <div class="event-badge"><div class="event-count">12</div>share_click</div>
+      </div>
+    </div>
+
+    <!-- ════ COL 2: API & GTM ════ -->
+    <div class="col">
+      <div class="card gtm">
+        <div class="card-title">🌐 Google Tag Manager</div>
+        <div class="card-subtitle">클라이언트 사이드 12개 이벤트 중계</div>
+        <div class="api-row">
+          <span class="badge gtm">TAG</span> F/E 발생 이벤트 Trigger
+        </div>
+        <div class="desc-text">
+          - 개발자가 dataLayer로 이벤트를 쏘면 GTM이 수집<br>
+          - <b>마케터(분석가)가 직접 Amplitude로 전송 관리</b>
+        </div>
+      </div>
+
+      <div class="card api">
+        <div class="card-title">⚙️ B/E (Next.js API Routes)</div>
+        <div class="card-subtitle">서버 사이드 결제 통신 및 로깅</div>
+        
+        <div class="api-row"><span class="badge post">POST</span> /api/payment/request</div>
+        <div class="desc-text" style="margin:0 0 8px 0;">↳ PayApp 결제 요청 SMS 발송</div>
+
+        <div class="api-row"><span class="badge post">POST</span> /api/payment/callback</div>
+        <div class="desc-text" style="margin:0 0 8px 0;">↳ PayApp 결제 완료 Webhook 수신</div>
+        
+        <div class="event-badge be"><div class="event-count">13</div>payment_complete</div>
+        <div class="desc-text" style="color:#b91c1c; font-weight:600;">
+          [중요] 이 이벤트는 GTM을 거치지 않고 서버가 직접 Amplitude HTTP API로 쏩니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ COL 3: Analytics & DB ════ -->
+    <div class="col">
+      <div class="card amp">
+        <div class="card-title">📈 Amplitude (분석용)</div>
+        <div class="card-subtitle">총 13개 이벤트 수집 및 시각화</div>
+        <div class="desc-text">
+          - <b>HMDA 1~5 백로그 지표 구현</b><br>
+          - UTM 기반 채널별 전환율 측정<br>
+          - <span style="color:#ef4444;font-weight:600">※ 실제 사용자 이름/전화번호 등 PII 배제</span>
+        </div>
+      </div>
+
+      <div class="card db">
+        <div class="card-title">💾 AWS / DB (운영용)</div>
+        <div class="card-subtitle">비즈니스 데이터 관리</div>
+        <div class="desc-text">
+          - 사주/타로 결과 원본 데이터<br>
+          - 사용자 식별 정보, 결제 영수증 저장
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-title">💸 PayApp (결제 PG)</div>
+        <div class="desc-text">
+          - B/E에서 `cmd=payrequest` 수신<br>
+          - 결제 성공 시 `state=1` Webhook 전송
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── HMDA BACKLOG ── -->
+<div class="hmda-wrap">
+  <div class="section-label">
+    <span>📊 데이터 분석 백로그 (hmda.md) - 이벤트 맵핑 보드</span>
+    <span style="font-size:12px; color:#6b7280; font-weight:500;">어떤 목적으로 13개의 이벤트가 나뉘어 있는지 확인하세요.</span>
+  </div>
+  
+  <div class="hmda-grid">
+    <div class="hmda-box">
+      <div class="hmda-box-title">HMDA-1 Activation <span>4개</span></div>
+      <div class="hmda-box-desc">초기 유입 후 캐릭터 선택까지의 각 단계별 이탈률과 소요 시간을 잽니다.</div>
+      <div class="hmda-event-list">
+        <div class="hmda-event">landing_enter</div>
+        <div class="hmda-event">intro_step_complete</div>
+        <div class="hmda-event">enter_character_select</div>
+        <div class="hmda-event">character_select</div>
+      </div>
+    </div>
+
+    <div class="hmda-box">
+      <div class="hmda-box-title" style="color:#8b5cf6;">HMDA-2 Transition <span>3개</span></div>
+      <div class="hmda-box-desc">유입 채널(UTM)별로 사용자가 결과 페이지까지 무사히 도달하는지 봅니다.</div>
+      <div class="hmda-event-list">
+        <div class="hmda-event">landing_enter (UTM)</div>
+        <div class="hmda-event">character_select</div>
+        <div class="hmda-event">result_received</div>
+      </div>
+    </div>
+
+    <div class="hmda-box">
+      <div class="hmda-box-title" style="color:#ef4444;">HMDA-3 Retention <span>6개</span></div>
+      <div class="hmda-box-desc">무료 결과에서 유료 결제로의 전환율과 미선택 캐릭터의 상호작용을 봅니다.</div>
+      <div class="hmda-event-list">
+        <div class="hmda-event">result_received</div>
+        <div class="hmda-event">payment_click</div>
+        <div class="hmda-event" style="border-color:#fca5a5; color:#b91c1c;">payment_complete</div>
+        <div class="hmda-event">share_click</div>
+        <div class="hmda-event">unselected_char_shown</div>
+        <div class="hmda-event">unselected_char_click</div>
+      </div>
+    </div>
+
+    <div class="hmda-box">
+      <div class="hmda-box-title" style="color:#059669;">HMDA-4 Time <span>2개</span></div>
+      <div class="hmda-box-desc">유료 결제자가 결과 내용을 끝까지 스크롤하여 완독하는 데 걸리는 시간을 잽니다.</div>
+      <div class="hmda-event-list">
+        <div class="hmda-event">paid_version_enter</div>
+        <div class="hmda-event">paid_version_complete</div>
+      </div>
+    </div>
+
+    <div class="hmda-box">
+      <div class="hmda-box-title" style="color:#d97706;">HMDA-5 Loop <span>2개</span></div>
+      <div class="hmda-box-desc">공유 버튼을 통해 나간 링크로 새로운 사용자가 얼마나 진입하는지 확인합니다.</div>
+      <div class="hmda-event-list">
+        <div class="hmda-event">share_click</div>
+        <div class="hmda-event">landing_enter (Referral)</div>
+      </div>
+    </div>
+
+    <div class="hmda-box">
+      <div class="hmda-box-title" style="color:#475569;">HMDA-6 Policy <span>규칙</span></div>
+      <div class="hmda-box-desc">마케팅 채널 유입 데이터를 깨끗하게 유지하기 위한 UTM 파라미터 작성 규칙입니다.</div>
+      <div class="hmda-event-list">
+        <div class="hmda-event" style="background:#f1f5f9; color:#475569;">개발 연동 무관</div>
+        <div class="hmda-event" style="background:#f1f5f9; color:#475569;">DA/마케터 자체 수행</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
